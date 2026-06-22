@@ -7,9 +7,8 @@ n_job  <- 10
 n      <- 1000
 dgps   <- c(1, 3, 2)
 
-address0 <- "./simulation/"
-in_dir   <- paste0(address0, "Bandwidth Choice (Table 3)/results/") # repo-root-relative; run from the repository root
-out_dir  <- paste0(address0, "Bandwidth Choice (Table 3)/tables/")  # repo-root-relative; run from the repository root
+in_dir   <- paste0(here::here("simulation", "Bandwidth Choice (Table 3)", "results"), "/")  # via 'here': from the project root
+out_dir  <- paste0(here::here("simulation", "Bandwidth Choice (Table 3)", "tables"), "/")   # via 'here': from the project root
 
 bw_methods   <- c("loocv",  "rcv", "plugin")
 est_methods  <- c("nstnr_ml", "nstnr_ls", "stnr_ml", "stnr_ls")

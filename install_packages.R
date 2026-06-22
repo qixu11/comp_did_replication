@@ -12,7 +12,8 @@ pkgs <- c(
   "np", "nnet", "MASS",                # density/bandwidth + multinomial logit + ginv
   "glmnet", "haven", "dplyr",          # application: data import / wrangling
   "ggplot2", "reshape2", "patchwork", "scales",  # Figure 1
-  "openxlsx"                           # Table 4 (.xlsx)
+  "openxlsx",                          # Table 4 (.xlsx)
+  "here"                               # project-root-relative file paths
 )
 
 to_install <- setdiff(pkgs, rownames(installed.packages()))

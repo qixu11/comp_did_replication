@@ -97,7 +97,7 @@ summary script. Reference copies of every output are in `reference_output/`.
   * Linux — a system C++ compiler (e.g. `g++`)
 * **R packages:** `Rcpp`, `RcppArmadillo`, `roptim`, `foreach`, `doParallel`,
   `doRNG`, `np`, `nnet`, `MASS`, `glmnet`, `haven`, `dplyr`, `ggplot2`,
-  `reshape2`, `patchwork`, `scales`, `openxlsx`.
+  `reshape2`, `patchwork`, `scales`, `openxlsx`, `here`.
   (`MASS` and `nnet` ship with R.)
 
 Install everything with:
@@ -121,12 +121,11 @@ source("install_packages.R")
 
 ## Setup — read before running
 
-1. **Run everything from the repository root.** Every driver and summary script
-   uses repository-root-relative default paths (`address`, `address0`, `base_dir` /
-   `app_dir`), so with the working directory set to the repo root they resolve
-   automatically — no editing required. (Advanced: you may instead set those
-   variables near the top of each script to absolute paths, in which case the
-   working directory no longer matters.)
+1. **No path setup needed.** Every script locates files with the
+   [`here`](https://here.r-lib.org) package, which resolves the project root from
+   the `.here` sentinel (or `.git`) at the top of this repository. Scripts
+   therefore run from **any** working directory — a fresh `git clone` or an
+   unzipped copy — with no `setwd()` and no paths to edit.
 2. **Data is included.** The application dataset (`Bribes_Regression.dta`) is
    bundled in `application/data/` under its original license — no download is
    required. See *Data availability and provenance* below for source and terms.
