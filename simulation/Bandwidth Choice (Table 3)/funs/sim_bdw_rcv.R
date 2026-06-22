@@ -14,7 +14,7 @@
 # Monte Carlo simulation for doubly robust DID (RCV bandwidths)
 # ---------------------------------------------------------------------------
 
-temp_data <- paste0(address, "/results/rcv/", "/temp_rcv.dgp-", dgp,
+temp_data <- paste0(address, "/results/rcv/", "temp_rcv.dgp-", dgp,
                    ".n-", n, ".job-", job, ".RData")
 
 pb <- txtProgressBar(max = nrep, style = 3)

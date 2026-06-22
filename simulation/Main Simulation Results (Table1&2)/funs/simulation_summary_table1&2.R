@@ -26,8 +26,8 @@ dgp_labels <- c(
 )
 
 # Paths
-address0 <- "./simulation/Main Simulation Results (Table1&2)/results"  # EDIT to your local simulation path
-out_dir  <- "./simulation/Main Simulation Results (Table1&2)/tables"   # EDIT to your local simulation path
+address0 <- "./simulation/Main Simulation Results (Table1&2)/results"  # repo-root-relative; run from the repository root
+out_dir  <- "./simulation/Main Simulation Results (Table1&2)/tables"   # repo-root-relative; run from the repository root
 
 #-----------------------------------------------------------------------------
 # Column-index lookup: (estimator_col, asy_var_col, coverage_col, CI_length_col)
