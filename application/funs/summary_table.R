@@ -12,13 +12,15 @@
 #   Asymptotic and cluster-bootstrap p-values and rejection decisions.
 #-----------------------------------------------------------------------------------------------
 
-# Application root via the 'here' package: resolved from the project root, so this
-# script runs from ANY working directory (no editing needed).
+# Application root via 'here'. here::i_am() anchors the project root to THIS
+# script; app_dir then resolves regardless of where R was launched (run from
+# anywhere inside the package folder).
 #
 # NOTE: a distinct variable name (app_dir, not base_dir) is used on purpose. The
 # result files below were written with save.image(), which stores the entire
 # workspace -- including the base_dir defined in main_drdid.R / main_twfe.R -- so
 # each load() would otherwise silently overwrite a variable named `base_dir`.
+here::i_am("application/funs/summary_table.R")
 app_dir <- here::here("application")
 
 source(file.path(app_dir, "funs/brackets.R"))

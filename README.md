@@ -121,11 +121,13 @@ source("install_packages.R")
 
 ## Setup — read before running
 
-1. **No path setup needed.** Every script locates files with the
-   [`here`](https://here.r-lib.org) package, which resolves the project root from
-   the `.here` sentinel (or `.git`) at the top of this repository. Scripts
-   therefore run from **any** working directory — a fresh `git clone` or an
-   unzipped copy — with no `setwd()` and no paths to edit.
+1. **No path setup needed.** Every script declares its own location with
+   `here::i_am()` and resolves files with [`here`](https://here.r-lib.org), which
+   finds the project root from the `.here` sentinel (or `.git`) at the top of this
+   repository. Scripts therefore run from **anywhere inside the package folder** —
+   a fresh `git clone` or an unzipped copy — with no `setwd()` and no paths to
+   edit. (Launch R from within the package; if the working directory is *outside*
+   the package, `here` stops with a clear error rather than guessing.)
 2. **Data is included.** The application dataset (`Bribes_Regression.dta`) is
    bundled in `application/data/` under its original license — no download is
    required. See *Data availability and provenance* below for source and terms.

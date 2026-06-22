@@ -35,10 +35,12 @@ library(RcppArmadillo)
 library(roptim)
 
 #-----------------------------------------------------------------------------
-# Paths via the 'here' package (https://here.r-lib.org): resolved from the project
-# root (the folder containing the '.here' sentinel / .git), so this script runs
-# from ANY working directory with no editing. `address` is this scenario folder;
-# CORE is the shared C++/R backend.
+# Paths via the 'here' package (https://here.r-lib.org). here::i_am() anchors the
+# project root to THIS script; here::here() then builds absolute paths from that
+# root, so the script runs from anywhere inside the package folder (a git clone or
+# an unzipped copy) with no setwd() and no paths to edit. `address` is this
+# scenario folder; CORE is the shared C++/R backend.
+here::i_am("simulation/Bandwidth Choice (Table 3)/funs/main_bdw_rcv.R")
 address <- here::here("simulation", "Bandwidth Choice (Table 3)")
 CORE    <- here::here("simulation", "core")
 
