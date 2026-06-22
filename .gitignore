@@ -13,6 +13,13 @@
 .Ruserdata
 .Rproj.user/
 *.Rproj
+# editor swap / backup files (Vim, Emacs, etc.)
+*.swp
+*.swo
+*.swn
+*~
+\#*\#
+.\#*
 
 # --- R / Rcpp compiled artifacts ---------------------------------------------
 *.o

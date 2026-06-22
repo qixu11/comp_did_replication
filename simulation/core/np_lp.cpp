@@ -254,8 +254,14 @@ mat lp_logit_ps_fit( vec  &bw,
   vec  gamma_0(Npar,  fill::zeros);
   vec  flag_vec(num_obs,  fill::zeros);
   X.cols(1, dim_x(0)) = cov.cols(0, dim_x(0)-1);
-  omp_set_num_threads(8);
-  #pragma omp parallel for shared(cov, X, dim_x, bw, dpost, ps_fit, flag_vec, npar, num_obs, gamma_0) schedule(dynamic) 
+  // OpenMP disabled for portability: the default macOS (Xcode CLT) and Rtools
+  // toolchains ship no OpenMP, so an active omp_set_num_threads() call fails to
+  // compile (undeclared identifier). The loop below is over independent
+  // evaluation points and is seeded per replication, so disabling OpenMP changes
+  // run time only, not the results. To re-enable, add `#include <omp.h>` and
+  // `// [[Rcpp::plugins(openmp)]]` at the top of this file and uncomment both lines.
+  // omp_set_num_threads(8);
+  // #pragma omp parallel for shared(cov, X, dim_x, bw, dpost, ps_fit, flag_vec, npar, num_obs, gamma_0) schedule(dynamic)
   for (int j = 0; j < num_obs; ++j){
     // get kernel weights
     bool flag = 0;

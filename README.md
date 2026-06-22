@@ -52,7 +52,7 @@ It reproduces:
 │       └── figures/                         # generated output (git-ignored)
 │
 └── application/                             # Section 6 — Sequeira (2016) application
-    ├── funs/  main_sequeira.R, main_sequeira_twfe.R, sequeira_table.R,
+    ├── funs/  main_drdid.R, main_twfe.R, summary_table.R,
     │          pre_process.R, locpol_funs.R, dr_did.R, brackets.R, np_lp.cpp
     ├── data/   Bribes_Regression.dta        # available from the AER Data Repository; obtain separately  (git-ignored)
     ├── results/                             # generated output (git-ignored)
@@ -91,14 +91,13 @@ source("install_packages.R")
 
 ## Setup — read before running
 
-1. **Set the local path.** Each driver and summary script sets an absolute path
-   near the top (`address`, `address0`, or `base_dir`) flagged with
-   `# EDIT to your local path`. Change it to point to your copy of the relevant
-   folder before running.
-2. **Run the application from `application/`.** The application backend is
-   sourced with a relative path (`funs/np_lp.cpp`), so the working directory
-   must be the `application/` folder when you run the Sequeira scripts.
-3. **Provide the data.** The application data file is not included — see
+1. **Run everything from the repository root.** Every driver and summary script
+   uses repository-root-relative default paths (`address`, `address0`, `base_dir` /
+   `app_dir`), so with the working directory set to the repo root they resolve
+   automatically — no editing required. (Advanced: you may instead set those
+   variables near the top of each script to absolute paths, in which case the
+   working directory no longer matters.)
+2. **Provide the data.** The application data file is not included — see
    *Data availability* below — place `Bribes_Regression.dta` in
    `application/data/`.
 
@@ -133,13 +132,16 @@ generate per-job results into `results/`, then run the matching
 
 ## Reproducing the application (Section 6, Table 4)
 
-With the working directory set to `application/`:
+With the working directory set to the repository root, and
+`application/data/Bribes_Regression.dta` in place:
 
-1. `funs/main_sequeira.R` — doubly robust DiD estimates (Panel B) and the
-   Hausman-type stationarity test (Panel C).
-2. `funs/main_sequeira_twfe.R` — two-way fixed-effects estimates (Panel A).
-3. `funs/sequeira_table.R` — assembles Table 4 from the saved results
-   (`results/table_ml_cluster.xlsx`).
+1. `application/funs/main_drdid.R` — doubly robust DiD estimates (Panel B) and the
+   Hausman-type stationarity test (Panel C). Writes
+   `application/results/result_sequeira_drdid.RData`.
+2. `application/funs/main_twfe.R` — two-way fixed-effects estimates (Panel A).
+   Writes `application/results/result_sequeira_twfe.RData`.
+3. `application/funs/summary_table.R` — assembles Table 4 from those two saved
+   `.RData` files into `application/tables/Table 4.xlsx`.
 
 Inference uses a cluster bootstrap (clustering on HS 4-digit codes); the seed is
 fixed in each script.
@@ -156,7 +158,9 @@ Re-running the scripts regenerates everything.
 ## Reproducibility
 
 Each script fixes its random seed (`seed1`), and the reported results were
-produced with R 4.3.3 and the package versions in `install_packages.R` (notably
+produced with R 4.3.3 and, in particular, `np` 0.60.17. `install_packages.R`
+installs the current CRAN build of each package rather than pinning exact
+versions, so for the closest agreement install the versions noted here (notably
 `np` 0.60.17). Several components are estimated nonparametrically — local-
 polynomial generalized propensity scores and outcome regressions, with
 bandwidths chosen by cross-validation or plug-in rules — through routines
@@ -174,8 +178,7 @@ kernel (no smoothing) for the discrete covariates, so each fit conditions on an
 exact discrete cell, giving smaller local samples and more often near-singular
 matrices than the cross-validated (LOOCV/RCV) variants, which smooth across
 categories. Matching the reported R and package versions (notably `np`) and
-toolchain gives the closest agreement; the shipped result files are the exact
-reference.
+toolchain gives the closest agreement.
 
 ### Troubleshooting
 
@@ -204,6 +207,6 @@ remain subject to their original license/terms.
 
 If you use this code, please cite the paper:
 
-> [Pedro H.C. Sant’Anna, Qi Xu] (2026). *Difference-in-Differences with Compositional Changes.*
+> Pedro H.C. Sant’Anna and Qi Xu (2026). *Difference-in-Differences with Compositional Changes.*
 > Journal of Econometrics, Volume 253, 2026, 106147, ISSN 0304-4076, https://doi.org/10.1016/j.jeconom.2025.106147.
 

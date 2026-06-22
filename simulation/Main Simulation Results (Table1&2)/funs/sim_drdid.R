@@ -574,7 +574,7 @@ colnames(mc.summary.1) <- c("DGP", "n", "Estimator", "Av.Bias", "Med.Bias","RMSE
 
 
 out1 <- paste0("mc.summary-dr-stb",".dgp-",dgp,".n-",n,".job-", job,".csv")
-out1 <- paste0(address,"/results", out1, sep="")
+out1 <- paste0(address,"/results/", out1, sep="")
 
 write.csv(mc.summary.1, file = out1)
 
@@ -600,7 +600,7 @@ colnames(mc.summary.2) <- c("DGP", "n", "Estimator", "Av.Bias", "Med.Bias","RMSE
 
 
 out2 <- paste0("mc.summary-dr-unstb",".dgp-",dgp,".n-",n,".job-", job,".csv")
-out2 <- paste0(address,"/results", out2, sep="")
+out2 <- paste0(address,"/results/", out2, sep="")
 
 write.csv(mc.summary.2, file = out2)
 
@@ -614,7 +614,7 @@ colnames(mc.summary.3) <- c("DGP", "n", "Stabilized", "Av. Stats.", "Emp. Rej. F
 rownames(mc.summary.3) <- c("stb_ml", "stb_ls", "unstb_ml",  "unstb_ls")
 
 out3 <- paste0("mc.summary-dr-test",".dgp-",dgp,".n-",n,".job-", job,".csv")
-out3 <- paste0(address,"/results", out3, sep="")
+out3 <- paste0(address,"/results/", out3, sep="")
 
 write.csv(mc.summary.3, file = out3)
 

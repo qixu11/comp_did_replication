@@ -35,8 +35,10 @@ library(RcppArmadillo)
 library(roptim)
 
 #-----------------------------------------------------------------------------
-# Set the Working Directory
-address <- "./simulation/Bandwidth Choice (Table 3)"  # EDIT to your local simulation/<scenario> path
+# Working directory. Run this script from the repository ROOT: the relative default
+# below is resolved to an absolute path automatically (no editing needed).
+# Alternatively, set `address` to the absolute path of this scenario folder.
+address <- normalizePath("./simulation/Bandwidth Choice (Table 3)")
 setwd(address)
 
 # Shared core backend (one copy for all simulation scenarios)

@@ -318,9 +318,15 @@ mat lp_logit_ps_rcv(vec &bw,
   
   // Create a vector of all indices
   uvec all_indices = regspace<uvec>(0, num_obs - 1);
-  
-  omp_set_num_threads(8);
-  #pragma omp parallel for shared(cov, X, dim_x, bw, dpost, ps_fit, flag_vec, npar, num_obs, gamma_0) schedule(dynamic) 
+
+  // OpenMP disabled for portability: the default macOS (Xcode CLT) and Rtools
+  // toolchains ship no OpenMP, so an active omp_set_num_threads() call fails to
+  // compile (undeclared identifier). The cross-validation folds below are
+  // independent and seeded per replication, so disabling OpenMP changes run time
+  // only, not the results. To re-enable, add `#include <omp.h>` and
+  // `// [[Rcpp::plugins(openmp)]]` at the top of this file and uncomment both lines.
+  // omp_set_num_threads(8);
+  // #pragma omp parallel for shared(cov, X, dim_x, bw, dpost, ps_fit, flag_vec, npar, num_obs, gamma_0) schedule(dynamic)
   for (int fold = 0; fold < KCV; fold++) {
     uvec test_indices = folds[fold];
     uvec train_indices = folds[1-fold];

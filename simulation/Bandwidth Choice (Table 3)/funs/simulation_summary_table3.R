@@ -8,8 +8,8 @@ n      <- 1000
 dgps   <- c(1, 3, 2)
 
 address0 <- "./simulation/"
-in_dir   <- paste0(address0, "Bandwidth Choice (Table 3)/results/") # EDIT to your local simulation path
-out_dir  <- paste0(address0, "Bandwidth Choice (Table 3)/tables/")  # EDIT to your local simulation path
+in_dir   <- paste0(address0, "Bandwidth Choice (Table 3)/results/") # repo-root-relative; run from the repository root
+out_dir  <- paste0(address0, "Bandwidth Choice (Table 3)/tables/")  # repo-root-relative; run from the repository root
 
 bw_methods   <- c("loocv",  "rcv", "plugin")
 est_methods  <- c("nstnr_ml", "nstnr_ls", "stnr_ml", "stnr_ls")
