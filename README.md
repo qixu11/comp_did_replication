@@ -139,7 +139,7 @@ For every scenario the workflow is the same: run the **`main_*`** driver(s) to
 generate per-job results into `results/`, then run the matching
 **`simulation_summary_*`** script to aggregate them into the table/figure.
 
-> **Runtime.** A full run is very long — on the order of three weeks of CPU time.
+> **Runtime.** A full run is very long — on the order of several weeks of CPU time.
 > Each driver loops over jobs `0`–`9`; in practice each job is run as a separate
 > (parallel) cluster task. For a quick check, reduce `nrep` and/or the job range
 > at the top of the driver.
