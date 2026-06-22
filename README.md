@@ -20,12 +20,16 @@ It reproduces:
 
 ## Repository structure
 
-```
+```text
 .
 ├── README.md
-├── LICENSE
+├── LICENSE                                  # MIT — covers the code in this repository
 ├── install_packages.R
 ├── .gitignore
+│
+├── reference_output/                        # the paper's exhibits, for comparison
+│   ├── Table 1.csv, Table 2.csv, Table 3.csv, Table 4.xlsx, Figure 1.pdf
+│   └── README.md
 │
 ├── simulation/                              # Section 5 — Monte Carlo study
 │   ├── core/                                # shared backend, sourced by every driver
@@ -54,7 +58,8 @@ It reproduces:
 └── application/                             # Section 6 — Sequeira (2016) application
     ├── funs/  main_drdid.R, main_twfe.R, summary_table.R,
     │          pre_process.R, locpol_funs.R, dr_did.R, brackets.R, np_lp.cpp
-    ├── data/   Bribes_Regression.dta        # available from the AER Data Repository; obtain separately  (git-ignored)
+    ├── data/  Bribes_Regression.dta         # Sequeira (2016); bundled under CC BY 4.0
+    │          LICENSE-Sequeira-2016-AEA.txt #   data license + attribution
     ├── results/                             # generated output (git-ignored)
     └── tables/                              # generated output (git-ignored)
 ```
@@ -69,7 +74,21 @@ paper's table/figure. The simulation drivers all source the shared backend in
 
 ---
 
-## Software requirements
+## List of exhibits
+
+Each paper exhibit is produced by a driver (or set of drivers) followed by a
+summary script. Reference copies of every output are in `reference_output/`.
+
+| Exhibit | Section | Driver(s) | Summary script | Output file |
+| --- | --- | --- | --- | --- |
+| Tables 1 & 2 | 5 | `main_drdid.R` | `simulation_summary_table1&2.R` | `tables/Table 1.csv`, `Table 2.csv` |
+| Table 3 | 5 | `main_bdw_loocv.R`, `main_bdw_rcv.R`, `main_bdw_plugin.R` | `simulation_summary_table3.R` | `tables/Table 3.csv` |
+| Figure 1 | 5 | `main_drdid_power.R` | `simulation_summary_power.R` | `figures/Figure 1.pdf` |
+| Table 4 | 6 | `main_drdid.R`, `main_twfe.R` (in `application/`) | `summary_table.R` | `tables/Table 4.xlsx` |
+
+---
+
+## Software and computational requirements
 
 * **R** (tested on 4.3.3) with a working C++ toolchain, because the
   local-polynomial backend is compiled at run time via `Rcpp::sourceCpp()`:
@@ -87,6 +106,17 @@ Install everything with:
 source("install_packages.R")
 ```
 
+* **Operating system:** platform-independent. The code has no OS-specific
+  dependencies and runs on macOS, Windows, and Linux given the toolchain above.
+* **Hardware and runtime:** the empirical application (Table 4) and every
+  `simulation_summary_*` aggregation script run in minutes on a standard laptop
+  (≈ 8 GB RAM). The full Monte Carlo study is heavy — on the order of three weeks
+  of single-core CPU time in total — and was originally run as parallel cluster
+  jobs; see *Reproducing the simulations* for how to scale it down for a quick
+  check.
+* **Disk:** the bundled data and the reference outputs are < 1 MB combined; a
+  full simulation run writes a few hundred MB of intermediate files to `results/`.
+
 ---
 
 ## Setup — read before running
@@ -97,9 +127,9 @@ source("install_packages.R")
    automatically — no editing required. (Advanced: you may instead set those
    variables near the top of each script to absolute paths, in which case the
    working directory no longer matters.)
-2. **Provide the data.** The application data file is not included — see
-   *Data availability* below — place `Bribes_Regression.dta` in
-   `application/data/`.
+2. **Data is included.** The application dataset (`Bribes_Regression.dta`) is
+   bundled in `application/data/` under its original license — no download is
+   required. See *Data availability and provenance* below for source and terms.
 
 ---
 
@@ -115,16 +145,19 @@ generate per-job results into `results/`, then run the matching
 > at the top of the driver.
 
 ### Tables 1 & 2 — main simulation
+
 1. Run `simulation/Main Simulation Results (Table1&2)/funs/main_drdid.R`
 2. Run `simulation_summary_table1&2.R`
    → `tables/Table 1.csv`, `Table 2.csv`
 
 ### Table 3 — bandwidth choice
+
 1. Run all three drivers: `main_bdw_loocv.R`, `main_bdw_rcv.R`,
    `main_bdw_plugin.R` (LOOCV, RCV, and plug-in bandwidth selectors)
 2. Run `simulation_summary_table3.R` → `tables/Table 3.csv`
 
 ### Figure 1 — power
+
 1. Run `simulation/Power Analysis (Figure 1)/funs/main_drdid_power.R`
 2. Run `simulation_summary_power.R` → `figures/Figure 1.pdf`
 
@@ -153,7 +186,9 @@ fixed in each script.
 `results/`, `tables/`, and `figures/` hold generated output and are **not**
 tracked (see `.gitignore`); only the empty directory skeleton is kept via
 `.gitkeep` so the scripts have somewhere to write after a fresh clone.
-Re-running the scripts regenerates everything.
+Re-running the scripts regenerates everything. The paper's exhibits are kept
+(tracked) under `reference_output/` so a replicator can compare a fresh run
+against the published numbers.
 
 ## Reproducibility
 
@@ -191,17 +226,42 @@ toolchain gives the closest agreement.
   the affected machines. (On machines where the original form already runs, no
   change is needed.)
 
-## Data availability
+## Data availability and provenance
 
-The application uses the replication data from Sequeira (2016), *Corruption,
-Trade Costs, and Gains from Tariff Liberalization*, American Economic Review.
-Obtain `Bribes_Regression.dta` from the journal's replication archive and place
-it in `application/data/`. The data are not redistributed in this repository.
+The empirical application uses a single dataset, which is **included** in this
+repository.
+
+**Rights and license.** The data are © 2016 American Economic Association and are
+made available under the Creative Commons Attribution 4.0 International license
+(**CC BY 4.0**). They are redistributed here **unmodified** under that license;
+the full license text and attribution are in
+[`application/data/LICENSE-Sequeira-2016-AEA.txt`](application/data/LICENSE-Sequeira-2016-AEA.txt).
+This package and its authors are not affiliated with, nor endorsed by, the
+original author or the American Economic Association.
+
+**Dataset list.**
+
+| Dataset | File | Source | Provided here? | License |
+| --- | --- | --- | --- | --- |
+| Bribe-payment regression sample (Southern African ports) | `application/data/Bribes_Regression.dta` (662 KB) | Sequeira (2016) replication package (openICPSR) | Yes — bundled | CC BY 4.0 |
+
+**Data citations.** The dataset is derived from, and should be cited as:
+
+* Sequeira, Sandra. 2016. "Corruption, Trade Costs, and Gains from Tariff
+  Liberalization: Evidence from Southern Africa." *American Economic Review*
+  106 (10): 3029–63. <https://doi.org/10.1257/aer.20150313>
+* Sequeira, Sandra. 2016. "Replication data for: Corruption, Trade Costs, and
+  Gains from Tariff Liberalization: Evidence from Southern Africa." American
+  Economic Association [publisher], Inter-university Consortium for Political and
+  Social Research [distributor]. <https://doi.org/10.3886/E113044V1>
 
 ## License
 
-Code is released under the MIT License (see `LICENSE`). The Sequeira (2016) data
-remain subject to their original license/terms.
+* **Code** in this repository is released under the MIT License (see `LICENSE`).
+* **Data** (`application/data/Bribes_Regression.dta`) is © 2016 American Economic
+  Association and is redistributed under CC BY 4.0; see
+  [`application/data/LICENSE-Sequeira-2016-AEA.txt`](application/data/LICENSE-Sequeira-2016-AEA.txt)
+  and *Data availability and provenance* above.
 
 ## Citation
 
