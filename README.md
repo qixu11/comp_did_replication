@@ -14,7 +14,7 @@ It reproduces:
 * **Section 5 — Monte Carlo study:** Tables 1 & 2 (main results), Table 3
   (bandwidth choice), and Figure 1 (power).
 * **Section 6 — Empirical application:** the effect of tariff reductions on
-  bribe payments at the port of Maputo (Sequeira, 2016, *AER*), Table 4.
+  bribe payments at the port of Maputo in Mozambique ([Sequeira, 2016, *AER*](http://dx.doi.org/10.1257/aer.20150313)), Table 4.
 
 ---
 
@@ -30,7 +30,7 @@ It reproduces:
 ├── simulation/                              # Section 5 — Monte Carlo study
 │   ├── core/                                # shared backend, sourced by every driver
 │   │   ├── np_lp.cpp, np_lp_rcv.cpp         #   local-polynomial routines (C++ / Rcpp)
-│   │   ├── dgps_drdid.R                     #   data-generating process; se.bound()
+│   │   ├── dgps_drdid.R                     #   data-generating process
 │   │   ├── locpol_funs.R                    #   GPS/OR local-poly fitting + CV bandwidths
 │   │   ├── dr_did.R                         #   DR DiD + TWFE estimators + bootstrap
 │   │   └── bw_plugin.R                      #   plug-in bandwidth selection
@@ -54,7 +54,7 @@ It reproduces:
 └── application/                             # Section 6 — Sequeira (2016) application
     ├── funs/  main_sequeira.R, main_sequeira_twfe.R, sequeira_table.R,
     │          pre_process.R, locpol_funs.R, dr_did.R, brackets.R, np_lp.cpp
-    ├── data/   Bribes_Regression.dta        # obtain separately (git-ignored)
+    ├── data/   Bribes_Regression.dta        # available from the AER Data Repository; obtain separately  (git-ignored)
     ├── results/                             # generated output (git-ignored)
     └── tables/                              # generated output (git-ignored)
 ```
