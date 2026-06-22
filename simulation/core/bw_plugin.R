@@ -44,7 +44,7 @@ plugin_bw_or <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bwmethod = 
   # Convert combinations to data frame and name columns
   colnames(combinations) <- colnames(x)[(k_c + 1) : dim(x)[2]]
   
-  K <- 9 # n1 + n2 + n3 =  2 + 3 + 4
+  K <- 9 
   
   # Initialize matrices
   gd11_fit <- gd12_fit <- gd22_fit <-  matrix(0, n, 4)
@@ -55,10 +55,7 @@ plugin_bw_or <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bwmethod = 
     
     # Get the indices of rows matching the current combination of factors
     idx_factor <- apply(x[, (k_c+1):dim(x)[2]], 1, function(row) all(row == combination))
-    # print(sum(idx_factor))
-    # if (i_factor == 57){
-    #   ii = 1234
-    # }
+
     # Run polynomial regression for the subset of data
     x_subset <- x[idx_factor, , drop = FALSE]
     dt_subset <- dt[idx_factor, , drop = FALSE]
@@ -134,7 +131,7 @@ plugin_bw_or <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bwmethod = 
   ## Estimate m^(q+1)(x) by running local quadratic using h.tilde
   ################################################################
   gdot11_fit  <- gdot12_fit <- gdot22_fit<- matrix(rep(0,4*n), nrow = n)
-  K =  5 # k_c + k_c *(k_c+1)/2
+  K =  5 
   dat_eval = cbind(x_c ,1:n)
   for (i in 1:n){
     X <- as.matrix(design_pol(x_c, x_c[i,], 2))
@@ -222,7 +219,7 @@ plugin_bw_ps <- function(dt, x, dim_x, kernel = "Epanechnikov", bwmethod = "norm
   # Convert combinations to data frame and name columns
   colnames(combinations) <- colnames(x)[(k_c + 1) : dim(x)[2]]
   
-  K <- 9 # n1 + n2 + n3 =  2 + 3 + 4
+  K <- 9 
   
   # Initialize matrices
   gd11_fit <- gd12_fit <- gd22_fit <-  matrix(0, n, 3)
@@ -252,9 +249,6 @@ plugin_bw_ps <- function(dt, x, dim_x, kernel = "Epanechnikov", bwmethod = "norm
     X11dot <- cbind(2, 0, 0, 6 * x_subset[, 1], 2 * x_subset[, 2], 0, 0)
     X12dot <- cbind(0, 1, 0, 0, 2 * x_subset[, 1], 2 * x_subset[, 2], 0)
     X22dot <- cbind(0, 0, 2, 0, 0, 2 * x_subset[, 1], 6 * x_subset[, 2])
-    
-    # gd11_tmp <- gd12_tmp <- gd22_tmp <- gddd_tmp <- matrix(0, n, 4)
-    #Const <- matrix(1, dim(x_subset)[1], 4)   # 7 to 10
     
     gd11_tmp <- X11dot %*% ps.Pol[4:10, ]
     gd12_tmp <- X12dot %*% ps.Pol[4:10, ]
@@ -521,7 +515,7 @@ plugin_bw_or_unconstr <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bw
   # Convert combinations to data frame and name columns
   colnames(combinations) <- colnames(x)[(k_c+1) : dim(x)[2]]
   
-  K <- 9 # n1 + n2 + n3 =  2 + 3 + 4
+  K <- 9 
   
   # Initialize matrices
   gd11_fit <- gd12_fit <- gd22_fit <-  matrix(0, n, 4)
@@ -553,10 +547,6 @@ plugin_bw_or_unconstr <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bw
     X12dot <- cbind(0, 1, 0, 0, 2 * x_subset[, 1], 2 * x_subset[, 2], 0)
     X22dot <- cbind(0, 0, 2, 0, 0, 2 * x_subset[, 1], 6 * x_subset[, 2])
     
-    # gd11_tmp <- gd12_tmp <- gd22_tmp <- gddd_tmp <- matrix(0, n, 4)
-    #Const <- matrix(1, dim(x_subset)[1], 4)
-    
-    
     gd11_tmp <- X11dot %*% or.Pol[4:10, ]
     gd12_tmp <- X12dot %*% or.Pol[4:10, ]
     gd22_tmp <- X22dot %*% or.Pol[4:10, ]
@@ -586,7 +576,7 @@ plugin_bw_or_unconstr <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bw
   
   ht.const.num   = colMeans(ht.num)   # 4 x 1
   
-  ht.const.denom = mean(sqrt(sum(Rho.v^2))/f_x)  # multiplied by 4 because we are averaging over the 4 treatment groups
+  ht.const.denom = mean(sqrt(sum(Rho.v^2))/f_x)  
   
   h.tilde = (ht.const.num/ht.const.denom * 2*n / (2*5*6))^(-1/8)  # 4 x 1
   
@@ -616,10 +606,7 @@ plugin_bw_or_unconstr <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bw
   dat_eval = cbind(x_c ,1:n)
   for (i in 1:n){
     X <- as.matrix(design_pol(x_c, x_c[i,], 2))
-    
-    # wgt.bw <- kernel.weights(x, dat_eval[i,], dim_x, 
-    #                          h.tilde, lambda_u = 0, lambda_o = 0,   
-    #                          kernel = "Epanechnikov")
+
     flag = 0
     wgt.bw.1 <-  wgt_kernel_mixed(x, dim_x, c(h.tilde[1], 0, 0), i-1, flag)
     wgt.bw.2 <-  wgt_kernel_mixed(x, dim_x, c(h.tilde[2], 0, 0), i-1, flag)
@@ -643,7 +630,7 @@ plugin_bw_or_unconstr <- function(dty, dt, x, dim_x, kernel = "Epanechnikov", bw
     
     # compute the derivative estimates (from the lp estimates multiplied by the factorial coefficients)
     gdot11_fit[i, ] = 2*or.fit[4, ]  
-    gdot12_fit[i, ] = 1*or.fit[5, ]   # updated the coefficient
+    gdot12_fit[i, ] = 1*or.fit[5, ]   
     gdot22_fit[i, ] = 2*or.fit[6, ] 
     
   }
