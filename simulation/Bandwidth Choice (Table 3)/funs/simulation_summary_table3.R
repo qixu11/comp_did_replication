@@ -7,6 +7,9 @@ n_job  <- 10
 n      <- 1000
 dgps   <- c(1, 3, 2)
 
+# here::i_am() anchors the project root to THIS script (run from anywhere inside
+# the package folder); here::here() then builds absolute paths.
+here::i_am("simulation/Bandwidth Choice (Table 3)/funs/simulation_summary_table3.R")
 in_dir   <- paste0(here::here("simulation", "Bandwidth Choice (Table 3)", "results"), "/")  # via 'here': from the project root
 out_dir  <- paste0(here::here("simulation", "Bandwidth Choice (Table 3)", "tables"), "/")   # via 'here': from the project root
 

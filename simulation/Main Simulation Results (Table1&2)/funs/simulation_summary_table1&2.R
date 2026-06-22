@@ -25,7 +25,9 @@ dgp_labels <- c(
   "2" = "Stationary Covariate Distribution"
 )
 
-# Paths
+# Paths. here::i_am() anchors the project root to THIS script (run from anywhere
+# inside the package folder); here::here() then builds absolute paths.
+here::i_am("simulation/Main Simulation Results (Table1&2)/funs/simulation_summary_table1&2.R")
 address0 <- here::here("simulation", "Main Simulation Results (Table1&2)", "results")  # via 'here': from the project root
 out_dir  <- here::here("simulation", "Main Simulation Results (Table1&2)", "tables")   # via 'here': from the project root
 

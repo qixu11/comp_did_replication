@@ -27,8 +27,10 @@
 #-----------------------------------------------------------------------------
 rm(list = ls())
 
-# Application root via the 'here' package: resolved from the project root, so this
-# script runs from ANY working directory (no editing needed).
+# Application root via 'here'. here::i_am() anchors the project root to THIS
+# script; base_dir then resolves regardless of where R was launched (run from
+# anywhere inside the package folder).
+here::i_am("application/funs/main_drdid.R")
 base_dir <- here::here("application")
 
 library("dplyr")
