@@ -35,8 +35,14 @@
 **/tables/**
 **/figures/**
 
-# --- Raw data: third-party (Sequeira 2016, AER); not redistributed here ------
+# --- Application data: Sequeira (2016, AER) ----------------------------------
+# (c) 2016 American Economic Association; data under CC BY 4.0, code under
+# BSD-3-Clause. Source: openICPSR https://doi.org/10.3886/E113044V1.
+# Redistributed here, unmodified, under CC BY 4.0 (see application/data/LICENSE-*).
+# Ignore everything under application/data/ EXCEPT the bundled data + its license.
 application/data/**
+!application/data/Bribes_Regression.dta
+!application/data/LICENSE-Sequeira-2016-AEA.txt
 
 # --- Keep the empty directory skeleton (overrides the rules above) -----------
 !**/.gitkeep
