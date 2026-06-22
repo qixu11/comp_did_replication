@@ -27,9 +27,9 @@
 #-----------------------------------------------------------------------------
 rm(list = ls())
 
-# Set the base directory to the application root.
-# Users should modify this path to point to their local copy.
-base_dir <- "./application" 
+# Application root via the 'here' package: resolved from the project root, so this
+# script runs from ANY working directory (no editing needed).
+base_dir <- here::here("application")
 
 library("dplyr")
 library("glmnet")

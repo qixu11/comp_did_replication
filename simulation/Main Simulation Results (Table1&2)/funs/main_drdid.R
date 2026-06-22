@@ -39,14 +39,12 @@ library(RcppArmadillo)
 library(roptim)
 
 #-----------------------------------------------------------------------------
-# Working directory. Run this script from the repository ROOT: the relative default
-# below is resolved to an absolute path automatically (no editing needed).
-# Alternatively, set `address` to the absolute path of this scenario folder.
-address <- normalizePath("./simulation/Main Simulation Results (Table1&2)")
-setwd(address)
-
-# Shared core backend (one copy for all simulation scenarios)
-CORE <- file.path(dirname(address), "core")
+# Paths via the 'here' package (https://here.r-lib.org): resolved from the project
+# root (the folder containing the '.here' sentinel / .git), so this script runs
+# from ANY working directory with no editing. `address` is this scenario folder;
+# CORE is the shared C++/R backend.
+address <- here::here("simulation", "Main Simulation Results (Table1&2)")
+CORE    <- here::here("simulation", "core")
 
 #-----------------------------------------------------------------------------
 # Source Rcpp file
@@ -81,7 +79,7 @@ for (nn in 3:3){
       ptm <- proc.time()
       
       #do the Monte Carlo
-      source("funs/sim_drdid.R")
+      source(file.path(address, "funs", "sim_drdid.R"))
       
       # return propensity score estimates
       time_used = proc.time() - ptm
