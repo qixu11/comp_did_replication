@@ -1,0 +1,35 @@
+# =============================================================================
+# .gitignore — Difference-in-Differences with Compositional Changes
+# Replication package: track code/scripts only. Regenerated outputs and the
+# raw application data are excluded (see README). The empty output-directory
+# skeleton is preserved via .gitkeep so scripts can write after a fresh clone.
+# =============================================================================
+
+# --- OS / editor cruft -------------------------------------------------------
+.DS_Store
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj
+
+# --- R / Rcpp compiled artifacts ---------------------------------------------
+*.o
+*.so
+*.dll
+
+# --- Scratch / working directories -------------------------------------------
+**/temp/
+**/tmp/
+
+# --- Generated outputs (produced by the main_* / sim_* / summary scripts) ----
+**/results/**
+**/tables/**
+**/figures/**
+
+# --- Raw data: third-party (Sequeira 2016, AER); not redistributed here ------
+application/data/**
+
+# --- Keep the empty directory skeleton (overrides the rules above) -----------
+!**/.gitkeep
