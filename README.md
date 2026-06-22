@@ -200,19 +200,9 @@ polynomial generalized propensity scores and outcome regressions, with
 bandwidths chosen by cross-validation or plug-in rules — through routines
 compiled from C++ via `RcppArmadillo`.
 
-These differences arise in the local-polynomial step: at each evaluation point
-it (pseudo-)inverts a local weighted moment matrix (`X' W X`), which can be
-near-singular when few observations carry appreciable weight there. Inverting an
-ill-conditioned matrix amplifies small floating-point differences across
-operating systems, compilers, and BLAS/LAPACK builds — a numerical feature of
-local estimation, that leaves the qualitative conclusions unchanged.
+Small numerical differences arise in the local-polynomial step. At each evaluation point, the procedure computes a (pseudo-)inverse of a local weighted moment matrix, (`X' W X`), which can become nearly singular when few observations receive appreciable weight. Inverting an ill-conditioned matrix amplifies small floating-point differences across operating systems, compilers, and BLAS/LAPACK implementations. This is a numerical feature of local estimation and does not affect the paper's qualitative conclusions.
 
-This is most visible in the plug-in rows of Table 3: it uses a frequency-based
-kernel (no smoothing) for the discrete covariates, so each fit conditions on an
-exact discrete cell, giving smaller local samples and more often near-singular
-matrices than the cross-validated (LOOCV/RCV) variants, which smooth across
-categories. Matching the reported R and package versions (notably `np`) and
-toolchain gives the closest agreement.
+These differences are most apparent in the plug-in rows of Table 3. The plug-in estimator uses a frequency-based kernel (that is, no smoothing) for the discrete covariates, so each fit conditions on an exact discrete cell. This results in smaller effective local samples and more frequent near-singular matrices than the cross-validated (LOOCV/RCV) variants, which smooth across categories. Matching the reported R and package versions (especially `np`) and using a similar toolchain yields the closest agreement.
 
 ### Troubleshooting
 
