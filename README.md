@@ -1,6 +1,6 @@
 # Difference-in-Differences with Compositional Changes — Replication Package
 
-Replication code for *Difference-in-Differences with Compositional Changes*.
+This repository contains the replication code for [Sant'Anna and Xu (2026)](https://doi.org/10.1016/j.jeconom.2025.106147), *"Difference-in-Differences with Compositional Changes"*.
 
 The package implements doubly robust (DR) DiD estimators for repeated cross
 sections that remain valid when the covariate distribution shifts across
