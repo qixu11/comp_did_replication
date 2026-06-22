@@ -169,7 +169,7 @@ ill-conditioned matrix amplifies small floating-point differences across
 operating systems, compilers, and BLAS/LAPACK builds — a numerical feature of
 local estimation, that leaves the qualitative conclusions unchanged.
 
-This is most visible in the plug-in column of Table 3: it uses a frequency-based
+This is most visible in the plug-in rows of Table 3: it uses a frequency-based
 kernel (no smoothing) for the discrete covariates, so each fit conditions on an
 exact discrete cell, giving smaller local samples and more often near-singular
 matrices than the cross-validated (LOOCV/RCV) variants, which smooth across
