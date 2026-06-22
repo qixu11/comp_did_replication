@@ -110,7 +110,7 @@ source("install_packages.R")
   dependencies and runs on macOS, Windows, and Linux given the toolchain above.
 * **Hardware and runtime:** the empirical application (Table 4) and every
   `simulation_summary_*` aggregation script run in minutes on a standard laptop
-  (≈ 8 GB RAM). The full Monte Carlo study is heavy — on the order of three weeks
+  (≈ 8 GB RAM). The full Monte Carlo study is heavy — on the order of several weeks
   of single-core CPU time in total — and was originally run as parallel cluster
   jobs; see *Reproducing the simulations* for how to scale it down for a quick
   check.
@@ -195,8 +195,7 @@ against the published numbers.
 Each script fixes its random seed (`seed1`), and the reported results were
 produced with R 4.3.3 and, in particular, `np` 0.60.17. `install_packages.R`
 installs the current CRAN build of each package rather than pinning exact
-versions, so for the closest agreement install the versions noted here (notably
-`np` 0.60.17). Several components are estimated nonparametrically — local-
+versions, so for the closest agreement install the versions noted here. Several components are estimated nonparametrically — local-
 polynomial generalized propensity scores and outcome regressions, with
 bandwidths chosen by cross-validation or plug-in rules — through routines
 compiled from C++ via `RcppArmadillo`.
